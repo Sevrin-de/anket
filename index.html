@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send to pocht</title>
+    <link rel="stylesheet" href="style.css">
+
+
+    <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
+    <script src="inputmask.min.js"></script>
+</head>
+<body>
+    <section class ="conctacts">
+    <h1 class="heading">Контакты для почты</h1>
+    <div class="row">
+        <div class="img">
+            <img class="s" src="gtc.jpg" alt="пес">
+        </div>
+    
+    <form action="" name="form" id="form">
+        <div class="form_input-box">
+        <span >Ваше имя</span>
+        <input type="text" name="name" id="name" class="box" required autocomplete="off" placeholder="Введите имя">
+    </div>
+    <div class="form_input-box">
+        <span >Кличка</span>
+        <input type="text" name="nameEnimail" id="nameEnimal" class="box" required autocomplete="off" placeholder="Введите кличку">
+    </div>
+    <div class="form_input-box">
+        <span >Gmail</span>
+        <input type="email" name="email" class="box" id="email" required autocomplete="off" placeholder="Введите gmail">
+        </div>
+        <span >Номер</span>
+        <input type="text" name="phone" class="box" id="phone" required autocomplete="off" placeholder="+7(__) ___-__-__">
+    </div>
+    <div class="form_input-box">
+        <span >Введите возраст</span>
+        <input type="number" name="number" class="box" id="number" required autocomplete="off" placeholder="Введите возраст">
+    </div>
+    
+    <div class="form_input-box">
+        <span>Выберете породу</span>
+        <select name="poroda" id="poroda" class="box">
+            <option value="shpic">Шпиц</option>
+            <option value="haski">Хазки</option>
+            <option value="korgi">Корги</option>
+            <option value="retriver">Ретривер</option>
+        </select>
+    </div>
+        <div class="form_input-box">
+        <span>Пол</span>
+        <div class="gender">
+        <input type="radio" name="male" id="male">
+        <label for="male">Мужской</label>
+        <input type="radio" name="male" id="female">
+        <label for="female">Женский</label>
+    </div>
+    </div>
+    <input type="submit" value="Отправка" class="bth" name="send">
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    </form>
+</div>
+</section>
+<script src="main.js"></script>
+
+<script>
+    document.getElementById("form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const response = await fetch('http://localhost:5000/submit-form', {
+            method: 'POST',
+            body: new FormData(e.target),
+        });
+
+        const data = await response.json();
+
+        if(data.success){
+            alert("Успех. Письмо отправлено");
+            e.target.reset();
+        }else{
+            alert("Ошибка" + data.message);
+        }
+    });
+ </script>
+
+</body>
+</html>
